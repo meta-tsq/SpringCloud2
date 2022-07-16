@@ -44,6 +44,10 @@ public class CommonResult<T> implements Serializable{
         return new CommonResult<Type>(SUCCESS,message,null);
     }
 
+    public static <Type> CommonResult<Type> success(String message,Type data){
+        return new CommonResult<Type>(SUCCESS,message,data);
+    }
+
     public static <Type> CommonResult<Type> failed(String message){
         return new CommonResult<Type>(FAILED,message,null);
     }

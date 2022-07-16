@@ -1,7 +1,8 @@
 package com.meta.springcloud.test;
 
-import com.meta.springcloud.entities.Payment;
+
 import com.meta.springcloud.mapper.PaymentMapper;
+import com.meta.springcloud.entities.Payment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

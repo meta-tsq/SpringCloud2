@@ -1,12 +1,15 @@
 package com.meta.springcloud.controller;
 
+
+import com.meta.springcloud.service.api.PaymentService;
 import com.meta.springcloud.entities.CommonResult;
 import com.meta.springcloud.entities.Payment;
-import com.meta.springcloud.service.api.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author Tang poetry all
@@ -16,6 +19,9 @@ import java.util.List;
 @Slf4j
 public class PaymentController {
 
+    @Value("${server.port}")
+    private String serverPort;
+
     private PaymentService paymentService;
 
     public PaymentController(PaymentService paymentService) {
@@ -23,13 +29,13 @@ public class PaymentController {
     }
 
     @PostMapping("/payment/create")
-    public CommonResult<String> save(Payment payment){
+    public CommonResult<String> save(@RequestBody Payment payment){
 
             int result = paymentService.add(payment);
 
             if (result > 0){
 
-                return CommonResult.success("插入数据成功");
+                return CommonResult.success("插入数据成功"+serverPort);
 
             }else {
 
@@ -46,7 +52,7 @@ public class PaymentController {
 
         if (payment != null){
 
-            return CommonResult.success(payment);
+            return CommonResult.success(serverPort,payment);
 
         }else {
 
@@ -66,8 +72,24 @@ public class PaymentController {
 
         }else {
 
-            return CommonResult.success(payments);
+            return CommonResult.success(serverPort,payments);
 
         }
+    }
+
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB() {
+        return serverPort;
+    }
+
+    @GetMapping("/time/out")
+    public String paymentTimeOut(){
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return serverPort;
     }
 }

@@ -1,0 +1,23 @@
+server:
+  port: 80
+
+spring:
+  devtools:
+    livereload:
+      port: 35730
+  application:
+    name: cloud-order-service
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: cloud-order-80
+    # Eureka客户端间隔多少秒给服务注册端发送心跳包，单位是秒(默认为30秒)
+    lease-renewal-interval-in-seconds: 1
+    # 服务注册端在收到最后一次心跳后等待时间上限，单位为秒(默认是90秒)，超时剔除服务
+    lease-expiration-duration-in-seconds: 2
+  client:
+    service-url:
+      #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/ 集群模式
+      defaultZone: http://eureka7001.com:7001/eureka/
+
