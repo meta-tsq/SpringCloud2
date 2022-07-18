@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: cloud-config-payment
+      label: main
+      profile: test
+      uri: http://config-3344.com:3344

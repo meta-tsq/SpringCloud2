@@ -36,4 +36,5 @@ public class OrderOpenFeignController {
     public String timeOut(){
        return paymentProviderServiceRemote.paymentTimeOut();
     }
+
 }

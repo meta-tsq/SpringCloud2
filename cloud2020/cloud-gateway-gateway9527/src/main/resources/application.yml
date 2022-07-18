@@ -1,0 +1,40 @@
+server:
+  port: 9527
+
+
+eureka:
+  instance:
+    instance-id: cloud-gateway-service
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: cloud-payment-service
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/get/**
+
+        - id: cloud-payment-service2
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/lb
+              #- After=2022-07-17T06:49:50.983705Z[UTC]
+              #- Before=2022-07-17T06:49:50.983705Z[UTC]
+              #- Between=2022-07-17T06:49:50.983705Z[UTC],2022-07-18T06:49:50.983705Z[UTC]
+              # - Cookie=username,tsq
+              # - Header=X-Request-Id, \d+
+              # - Host=**.meta.com
+              #- Method=GET
+            - Query=username, \d+
+      discovery:
+        locator:
+          enabled: true
