@@ -1,0 +1,19 @@
+server:
+  port: 8802
+
+spring:
+  application:
+    name: cloud-rocketmq
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # 配置rocketmq的nameserver地址
+          name-server: 192.168.71.4:9876
+      bindings:
+        input:
+          destination: test-topic
+          content-type: text/plain
+          group: test-group1
+          consumer:
+            orderly: true

@@ -51,4 +51,8 @@ public class CommonResult<T> implements Serializable{
     public static <Type> CommonResult<Type> failed(String message){
         return new CommonResult<Type>(FAILED,message,null);
     }
+
+    public static <Type> CommonResult<Type> failed(String message,Type data){
+        return new CommonResult<Type>(FAILED,message,data);
+    }
 }

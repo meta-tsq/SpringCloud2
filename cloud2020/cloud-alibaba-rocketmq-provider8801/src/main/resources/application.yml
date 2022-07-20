@@ -1,0 +1,17 @@
+server:
+  port: 8801
+
+spring:
+  application:
+    name: cloud-rocketmq
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # 配置rocketmq的nameserver地址
+          name-server: 192.168.71.4:9876
+      bindings:
+        # 定义name为output的binding
+        output:
+          destination: test-topic
+          content-type: application/json
